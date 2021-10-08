@@ -13,8 +13,8 @@
 require_once 'functions.php';
 
 createTable('members',
-            'user VARCHAR(16),
-            pass VARCHAR(16),
+            'user VARCHAR(256),
+            pass VARCHAR(256),
             INDEX(user(6))');
 
 createTable('messages',

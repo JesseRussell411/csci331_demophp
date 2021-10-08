@@ -73,7 +73,8 @@ function prepQueryMysql($query, $types, ...$params){
 }
 $result = queryMysql("SELECT * FROM members WHERE user='$user'");
 $getUserStatement = $connection->prepare("SELECT * FROM members WHERE user = ?");
-$createUserStatement = $connection->prepare("INSERT INTO members (user, pass) VALUES(?, ?)");
+$getPassHashStatement = $connection->prepare("SELECT pass FROM members WHERE user = ?");
+$createUserStatement = $connection->prepare("INSERT INTO members VALUES(?, ?)");
 $getVerifiedUserStatement = $connection->prepare("SELECT * FROM members WHERE user = ? AND pass = ?");
 
 
@@ -88,16 +89,18 @@ function createUser($username, $password){
     if (userExists($username))
         throw new Exception("User exists");
 
+    $pass_hash = password_hash($password, PASSWORD_BCRYPT);
     global $createUserStatement;
-    $createUserStatement->bind_param("ss", $username, $password);
+    $createUserStatement->bind_param("ss", $username, $pass_hash);
     $createUserStatement->execute();
-    return $createUserStatement->get_result();
 }
 
 function verifyUser($username, $password){
-    global $getVerifiedUserStatement;
-    $getVerifiedUserStatement->bind_param("ss", $username, $password);
-    $getVerifiedUserStatement->execute();
-    return $getVerifiedUserStatement->get_result()->num_rows > 0;
+    // return password_verify($password, password_hash($password, PASSWORD_BCRYPT));
+    global $getPassHashStatement;
+    $getPassHashStatement->bind_param("s", $username);
+    $getPassHashStatement->execute();
+    $pass_hash = $getPassHashStatement->get_result()->fetch_row()[0];
+    return password_verify($password, $pass_hash);
 }
 ?>
