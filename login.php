@@ -9,15 +9,13 @@ if (isset($_POST['user'])) {
     if ($user == "" || $pass == "")
         $error = 'Not all fields were entered';
     else {
-        $result = queryMySQL("SELECT user,pass FROM members WHERE user='$user' AND pass='$pass'");
-
-        if ($result->num_rows == 0) {
-            $error = "Invalid login attempt";
-        }
-        else {
+        if (verifyUser($user, $pass)){
             $_SESSION['user'] = $user;
             $_SESSION['pass'] = $pass;
             die("<h3>Welcome back, $user.</h3><p>Please <a href='members.php?view=$user'>click here</a> to continue.</p></div><footer></footer></body></html>");
+        }
+        else{
+            $error = "Invalid login attempt";
         }
     }
 }

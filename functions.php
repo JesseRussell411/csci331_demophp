@@ -9,12 +9,14 @@ $dbpass  = '60mice';   // ...to your installation
 
 $connection = new mysqli($dbhost, $dbuser, $dbpass, $dbname);
 if ($connection->connect_error) 
-    die("Fatal Error 1");
+    throw new Exception("Cannot connect to database");
+
 
 function createTable($name, $query){
     queryMysql("CREATE TABLE IF NOT EXISTS $name($query)");
     echo "Table '$name' created or already exists.<br>";
 }
+
 
 function queryMysql($query) {
     global $connection;
@@ -52,5 +54,50 @@ function showProfile($user) {
         echo stripslashes($row['text']) . "<br style='clear:left;'><br>";
     }
     else echo "<p>Nothing to see here, yet</p><br>";
+}
+
+
+
+
+
+
+
+// my additions:
+
+function prepQueryMysql($query, $types, ...$params){
+    global $connection;
+    $statement = $connection->prepare($query);
+    $statement->bind_param($types, ...$params);
+    $statement->execute();
+    return $statement->get_result();
+}
+$result = queryMysql("SELECT * FROM members WHERE user='$user'");
+$getUserStatement = $connection->prepare("SELECT * FROM members WHERE user = ?");
+$createUserStatement = $connection->prepare("INSERT INTO members (user, pass) VALUES(?, ?)");
+$getVerifiedUserStatement = $connection->prepare("SELECT * FROM members WHERE user = ? AND pass = ?");
+
+
+function userExists($username){
+    global $getUserStatement;
+    $getUserStatement->bind_param("s", $username);
+    $getUserStatement->execute();
+    return $getUserStatement->get_result()->num_rows > 0;
+}
+
+function createUser($username, $password){
+    if (userExists($username))
+        throw new Exception("User exists");
+
+    global $createUserStatement;
+    $createUserStatement->bind_param("ss", $username, $password);
+    $createUserStatement->execute();
+    return $createUserStatement->get_result();
+}
+
+function verifyUser($username, $password){
+    global $getVerifiedUserStatement;
+    $getVerifiedUserStatement->bind_param("ss", $username, $password);
+    $getVerifiedUserStatement->execute();
+    return $getVerifiedUserStatement->get_result()->num_rows > 0;
 }
 ?>
