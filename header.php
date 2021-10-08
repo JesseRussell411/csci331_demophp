@@ -13,7 +13,7 @@ echo <<<_INIT
         <script src='javascript.js'></script>
         <link href="https://fonts.googleapis.com/css?family=Arsenal|Lora|Muli|Source+Sans+Pro|Playfair+Display&display=swap" rel="stylesheet">
         <link rel='stylesheet' href='css/styles.css'>
-        <title>$clubstr: $userstr</title>
+        <title>eyeSpace</title>
         </head>
 _INIT;
 
@@ -31,7 +31,7 @@ echo <<<_HEADER_OPEN
     <body>
         <div id="wrapper">
         <header>
-            <div id='logo'>$clubstr</div>
+            <div id='logo'>eye Space</div>
 _HEADER_OPEN;
 
 if ($loggedin) {

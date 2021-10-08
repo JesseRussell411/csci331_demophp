@@ -11,7 +11,7 @@ if (isset($_POST['user'])) {
     else {
         if (verifyUser($user, $pass)){
             $_SESSION['user'] = $user;
-            $_SESSION['pass'] = $pass;
+            // $_SESSION['pass'] = $pass;
             die("<h3>Welcome back, $user.</h3><p>Please <a href='members.php?view=$user'>click here</a> to continue.</p></div><footer></footer></body></html>");
         }
         else{

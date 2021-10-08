@@ -71,7 +71,6 @@ function prepQueryMysql($query, $types, ...$params){
     $statement->execute();
     return $statement->get_result();
 }
-$result = queryMysql("SELECT * FROM members WHERE user='$user'");
 $getUserStatement = $connection->prepare("SELECT * FROM members WHERE user = ?");
 $getPassHashStatement = $connection->prepare("SELECT pass FROM members WHERE user = ?");
 $createUserStatement = $connection->prepare("INSERT INTO members VALUES(?, ?)");

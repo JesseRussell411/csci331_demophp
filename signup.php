@@ -23,9 +23,11 @@ if (isset($_SESSION['user']))
 if (isset($_POST['user'])) {
     $user = sanitizeString($_POST['user']);
     $pass = sanitizeString($_POST['pass']);
-    
-    if ($user == "" || $pass == "")
-        $error = 'Not all fields were entered<br><br>';
+    $confirmPass = sanitizeString($_POST['confirm_pass']);
+    if ($pass !== $confirmPass)
+        $error = 'Passwords do not match';
+    else if ($user == "" || $pass == "")
+        $error = 'Not all fields were entered';
     else {
         try{
             createUser($user, $pass);
@@ -48,26 +50,32 @@ if (isset($_POST['user'])) {
 }
 
 echo <<<_END
-    <form method='post' action='signup.php'>$error
+    <form method='post' action='signup.php'>$error<br><br>
         <div data-role='fieldcontain'>
             <label></label>
             <h3>Create username and password</h3>
         </div>
         <div data-role='fieldcontain'>
             <label>Username</label>
-            <input type='text' maxlength='16' name='user' value='$user' onBlur='checkUser(this)'>
+            <input type='text' maxlength='16' name='user' value='$user' onBlur='checkUser(this)' required>
             <label></label>
             <!-- <div id='used'>&nbsp;</div> -->
         </div>
         <div data-role='fieldcontain'>
             <label>Password</label>
-            <input type='text' maxlength='16' name='pass' value='$pass'>
+            <input type='password' maxlength='16' name='pass' id='password_field' required>
+        </div>
+        <div data-role='fieldcontain'>
+            <label>Repeat Password</label>
+            <input type='password' maxlength='16' name='confirm_pass' id='confirm_password_field' required>
         </div>
         <div data-role='fieldcontain'>
             <label></label>
-            <input data-transition='slide' type='submit' value='Sign Up'>
+            <input data-transition='slide' type='submit' value='Sign Up' id="submit_button">
         </div>
     </form>
 _END;
   require_once 'footer.php';
 ?>
+
+<script src="./signup.js"></script>
