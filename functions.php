@@ -60,6 +60,25 @@ function showProfile($user) {
 
 
 // my additions:
+$driver = new mysqli_driver();
+$driver->report_mode = MYSQLI_REPORT_ALL;
+
+class UserExistsException extends Exception {
+    public $username;
+
+    public function __construct(string $username, Throwable $previouse = NULL){
+        parent::__construct("user: $username, already exists.", 0, $previouse);
+        $this->username = $username;
+    }
+
+    public function getUsername(){
+        return $this->username;
+    }
+
+    public function __toString(){
+        return __CLASS__ . " -- $this->message";
+    }
+}
 
 function prepQueryMysql($query, $types, ...$params){
     global $connection;
@@ -82,14 +101,23 @@ function userExists($username){
 }
 
 function createUser($username, $password){
-    if (userExists($username))
-        throw new Exception("User exists");
-
-    $pass_hash = password_hash($password, PASSWORD_BCRYPT);
     global $createUserStatement;
-    $createUserStatement->bind_param("ss", $username, $pass_hash);
-    $createUserStatement->execute();
+    $pass_hash = password_hash($password, PASSWORD_BCRYPT);
+
+    try{
+        $createUserStatement->bind_param("ss", $username, $pass_hash);
+        $createUserStatement->execute();
+    }
+    catch(mysqli_sql_exception $e){
+        if ($e->getCode() == 1062){
+            throw new UserExistsException($username, $e);
+        }
+        else{
+            throw $e;
+        }
+    }
 }
+
 /**
  * @return bool whether the username and password match
  */

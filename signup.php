@@ -29,9 +29,12 @@ if (isset($_POST['user'])) {
     else if ($user == "" || $pass == "")
         $error = 'Not all fields were entered';
     else {
-        try{
+        try {
             createUser($user, $pass);
             die('<h4>Account created</h4>Please Log in.</div></body></html>');
+        }
+        catch(UserExistsException $e){
+            $error = "The user: ".$e->getUsername()." already exists. Try a different username.";
         }
         catch(Exception $e){
             $error = $e->getMessage();
