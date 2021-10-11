@@ -1,0 +1,230 @@
+<?php
+$dbhost  = 'localhost';
+
+$dbname  = 'db60';   // Modify these...
+$dbuser  = 'user60';   // ...variables according
+$dbpass  = '60mice';   // ...to your installation
+// test change
+
+
+$connection = new mysqli($dbhost, $dbuser, $dbpass, $dbname);
+if ($connection->connect_error) 
+    throw new Exception("Cannot connect to database");
+
+
+function createTable($name, $query){
+    queryMysql("CREATE TABLE IF NOT EXISTS $name($query)");
+    echo "Table '$name' created or already exists.<br>";
+}
+
+
+function queryMysql($query) {
+    global $connection;
+    $result = $connection->query($query);
+    if (!$result) die("Fatal Error 2");
+    return $result;
+}
+
+function destroySession() {
+    $_SESSION=array();
+
+    if (session_id() != "" || isset($_COOKIE[session_name()]))
+        setcookie(session_name(), '', time()-2592000, '/');
+
+    session_destroy();
+}
+
+function sanitizeString($var){
+    global $connection;
+    $var = strip_tags($var);
+    $var = htmlentities($var);
+    if (get_magic_quotes_gpc())
+        $var = stripslashes($var);
+    return $connection->real_escape_string($var);
+}
+
+function showProfile($user) {
+    if (file_exists("userpics/$user.jpg"))
+        echo "<img class='userpic' src='userpics/$user.jpg'>";
+
+    $result = queryMysql("SELECT * FROM profiles WHERE user='$user'");
+
+    if ($result->num_rows) {
+        $row = $result->fetch_array(MYSQLI_ASSOC);
+        echo stripslashes($row['text']) . "<br style='clear:left;'><br>";
+    }
+    else echo "<p>Nothing to see here, yet</p><br>";
+}
+
+
+
+
+
+
+
+// my additions:
+
+$driver = new mysqli_driver();
+$driver->report_mode = MYSQLI_REPORT_ALL;
+
+class UserExistsException extends Exception {
+    public $username;
+
+    public function __construct(string $username, Throwable $previouse = NULL){
+        parent::__construct("user: $username, already exists.", 0, $previouse);
+        $this->username = $username;
+    }
+
+    public function getUsername(){
+        return $this->username;
+    }
+
+    public function __toString(){
+        return __CLASS__ . " -- $this->message";
+    }
+}
+
+
+function prepQueryMysql($query, $types, ...$params){
+    global $connection;
+    $statement = $connection->prepare($query);
+    $statement->bind_param($types, ...$params);
+    $statement->execute();
+    return $statement->get_result();
+}
+
+$getUserStatement = $connection->prepare("SELECT * FROM members WHERE user = ?");
+$getPassHashStatement = $connection->prepare("SELECT pass FROM members WHERE user = ?");
+$createUserStatement = $connection->prepare("INSERT INTO members VALUES(?, ?)");
+$getVerifiedUserStatement = $connection->prepare("SELECT * FROM members WHERE user = ? AND pass = ?");
+
+
+function userExists($username){
+    global $getUserStatement;
+    $getUserStatement->bind_param("s", $username);
+    $getUserStatement->execute();
+    return $getUserStatement->get_result()->num_rows > 0;
+}
+
+function createUser($username, $password){
+    global $createUserStatement;
+    $pass_hash = password_hash($password, PASSWORD_BCRYPT);
+
+    try{
+        $statement->bind_param($types, ...$params);
+        $statement->execute();
+    }
+    catch(mysqli_sql_exception $e){
+        if ($e->getCode() == 1062){
+            throw new UserExistsException($username, $e);
+        }
+        else{
+            throw $e;
+        }
+    }
+}
+
+function verifyUser($username, $password){
+    // return password_verify($password, password_hash($password, PASSWORD_BCRYPT));
+    global $getPassHashStatement;
+    $getPassHashStatement->bind_param("s", $username);
+    $getPassHashStatement->execute();
+    $pass_hash = $getPassHashStatement->get_result()->fetch_row()[0];
+    return password_verify($password, $pass_hash);
+}
+?>
+
+
+
+
+
+
+
+
+
+
+
+<?php
+require_once 'header.php';
+
+echo <<<_END
+<script>
+    function checkUser(user) {
+        if (user.value == '') {
+            $('#used').html('&nbsp;');
+            return;
+        }
+
+        $.post('checkuser.php', { user : user.value }, function(data) {
+            $('#used').html(data)
+        });
+    }
+</script>  
+_END;
+
+$error = $user = $pass = "";
+if (isset($_SESSION['user'])) 
+    destroySession();
+
+if (isset($_POST['user'])) {
+    $user = sanitizeString($_POST['user']);
+    $pass = sanitizeString($_POST['pass']);
+    $confirmPass = sanitizeString($_POST['confirm_pass']);
+    if ($pass !== $confirmPass)
+        $error = 'Passwords do not match';
+    else if ($user == "" || $pass == "")
+        $error = 'Not all fields were entered';
+    else {
+        try {
+            createUser($user, $pass);
+            die('<h4>Account created</h4>Please Log in.</div></body></html>');
+        }
+        catch(UserExistsException $e){
+            $error = "The user: ".$e->getUsername()." already exists. Try a different username.";
+        }
+        catch(Exception $e){
+            $error = $e->getMessage();
+        }
+        // // $result = queryMysql("SELECT * FROM members WHERE user='$user'");
+
+        // // if ($result->num_rows)
+        // //     $error = 'That username already exists<br><br>';
+        // if (userExists($user))
+        //     $error = 'user exists dumbo';
+        // else {
+        //     queryMysql("INSERT INTO members VALUES('$user', '$pass')");
+        //     die('<h4>Account created</h4>Please Log in.</div></body></html>');
+        // }
+    }
+}
+
+echo <<<_END
+    <form method='post' action='signup.php'>$error<br><br>
+        <div data-role='fieldcontain'>
+            <label></label>
+            <h3>Create username and password</h3>
+        </div>
+        <div data-role='fieldcontain'>
+            <label>Username</label>
+            <input type='text' maxlength='16' name='user' value='$user' onBlur='checkUser(this)' required>
+            <label></label>
+            <!-- <div id='used'>&nbsp;</div> -->
+        </div>
+        <div data-role='fieldcontain'>
+            <label>Password</label>
+            <input type='password' maxlength='16' name='pass' id='password_field' required>
+        </div>
+        <div data-role='fieldcontain'>
+            <label>Repeat Password</label>
+            <input type='password' maxlength='16' name='confirm_pass' id='confirm_password_field' required>
+        </div>
+        <div data-role='fieldcontain'>
+            <label></label>
+            <input data-transition='slide' type='submit' value='Sign Up' id="submit_button">
+        </div>
+    </form>
+_END;
+  require_once 'footer.php';
+?>
+
+<script src="./signup.js"></script>
