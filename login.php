@@ -9,14 +9,25 @@ if (isset($_POST['user'])) {
     if ($user == "" || $pass == "")
         $error = 'Not all fields were entered';
     else {
-        if (verifyUser($user, $pass)){
-            $_SESSION['user'] = $user;
-            // $_SESSION['pass'] = $pass;
+        $loginResult = userLogin($user, $pass);
+
+        if ($loginResult === true){
             die("<h3>Welcome back, $user.</h3><p>Please <a href='members.php?view=$user'>click here</a> to continue.</p></div><footer></footer></body></html>");
         }
-        else{
+        else if ($loginResult === false){
             $error = "Invalid login attempt";
         }
+        else if ($loginResult === NULL){
+            $error = "You are already logged into a different account. Logout of that account first.";
+        }
+        // if (verifyUser($user, $pass)){
+        //     $_SESSION['user'] = $user;
+        //     $_SESSION['pass'] = $pass;
+        //     die("<h3>Welcome back, $user.</h3><p>Please <a href='members.php?view=$user'>click here</a> to continue.</p></div><footer></footer></body></html>");
+        // }
+        // else{
+        //     $error = "Invalid login attempt";
+        // }
     }
 }
 
