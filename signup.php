@@ -31,6 +31,7 @@ if (isset($_POST['user'])) {
     else {
         try {
             createUser($user, $pass);
+            http_response_code(201);
             die('<h4>Account created</h4>Please Log in.</div></body></html>');
         }
         catch(UserExistsException $e){

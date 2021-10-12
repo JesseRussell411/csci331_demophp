@@ -1,4 +1,6 @@
 <?php
+error_reporting(E_ERROR | E_PARSE);
+
 require_once 'connectToDatabase.php';
 session_start();
 
@@ -60,9 +62,6 @@ function showProfile($user) {
 
 
 // my additions:
-$driver = new mysqli_driver();
-$driver->report_mode = MYSQLI_REPORT_ALL;
-
 class UserExistsException extends Exception {
     public $username;
 
@@ -104,17 +103,10 @@ function createUser($username, $password){
     global $createUserStatement;
     $pass_hash = password_hash($password, PASSWORD_BCRYPT);
 
-    try{
-        $createUserStatement->bind_param("ss", $username, $pass_hash);
-        $createUserStatement->execute();
-    }
-    catch(mysqli_sql_exception $e){
-        if ($e->getCode() == 1062){
-            throw new UserExistsException($username, $e);
-        }
-        else{
-            throw $e;
-        }
+    $createUserStatement->bind_param("ss", $username, $pass_hash);
+    $createUserStatement->execute();
+    if ($createUserStatement->errno === 1062){
+        throw new UserExistsException($username);
     }
 }
 
