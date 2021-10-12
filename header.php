@@ -37,6 +37,7 @@ echo <<<_LOGGEDIN
 
             <nav><ul>
                 <li><a href='members.php?view=$user'>Home</a></li>
+                <li><a href='marketplace.php'>Marketplace</a></li>
                 <li><a href='members.php'>Members</a></li>
                 <li><a href='friends.php'>Friends</a></li>
                 <li><a href='messages.php'>Messages</a></li>
@@ -49,6 +50,7 @@ echo <<<_GUEST
 
             <nav><ul>
                 <li><a href='index.php'>Home</a></li>
+                <li><a href='marketplace.php'>Marketplace</a></li>
                 <li><a href='signup.php'>Sign Up</a></li>
                 <li><a href='login.php'>Log In</a></li>
             </ul></nav>

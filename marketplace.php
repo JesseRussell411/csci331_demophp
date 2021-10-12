@@ -12,7 +12,7 @@ require_once 'header.php';
     <!-- slow babel translator for jsx (fine for this I guess) -->
     <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
     <!-- Load React component. -->
-    <script type ="text/babel"src="marketplace.jsx"></script>
+    <script type ="text/babel"src="marketplace/marketplace.jsx"></script>
 <?php
 require_once 'footer.php';
 ?>
