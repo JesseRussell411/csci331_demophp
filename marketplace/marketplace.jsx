@@ -1,10 +1,15 @@
 const reactContainer = document.getElementById("react_container");
 const {useState, useEffect} = React;
 
+function LoadingIndicator(){
+    return <p>loading...</p>;
+}
+
 function Main(){
-    const [items, setItems] = useState([]);
+    const [items, setItems] = useState(null);
 
     useEffect(async () => {
+        if (items == null){
         const result = await fetch("marketplace/api/getAllItems.php", {
             method: "GET",
         });
@@ -12,32 +17,26 @@ function Main(){
         if (result.ok){
             setItems(await result.json());
         }
+    }
     });
 
+    function formatMoney(amount_cents){
+        const dollars = Math.trunc(amount_cents / 100);
+        const cents = amount_cents % 100;
+        return `${dollars}.${cents}`;
+    }
+
     return <div>
+        {
+            items == null ? <LoadingIndicator/> :
         <ul>
         {items.map(i => <li>{i[1]}<ul>
             <li>{i[0]}</li>
             <li>{i[2]}</li>
+            <li>${formatMoney(parseInt(i[3]))}</li>
         </ul></li>)}
-        </ul>
+        </ul>}
     </div>
-
-    
-    // const [testState, setTestState] = useState(6);
-
-    // async function testFetch(){
-    //     const result = await fetch("validate_route.php", {
-    //         method:"GET",
-    //     });
-        
-    //     if (result.ok)
-    //         setTestState("You are logged in" + result.status);
-    //     else
-    //         setTestState("You are not logged in" + result.status);
-    // }
-
-    // return <p>main test {3+testState}<button onClick={testFetch}>test fetch and set state</button></p>;
 }
 
 ReactDOM.render(
