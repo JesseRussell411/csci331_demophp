@@ -10,7 +10,7 @@
             http_response_code(200);
         }
         else {
-            http_response_code(401);
+            http_response_code(403);
         }
     }
     catch(MarketplaceItemNotFoundException $e){
