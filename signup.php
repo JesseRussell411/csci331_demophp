@@ -21,7 +21,7 @@ if (isset($_SESSION['user']))
     destroySession();
 
 if (isset($_POST['user'])) {
-    $user = sanitizeString($_POST['user']);
+    $user = strtolower(sanitizeString($_POST['user']));
     $pass = sanitizeString($_POST['pass']);
     $confirmPass = sanitizeString($_POST['confirm_pass']);
     if ($pass !== $confirmPass)

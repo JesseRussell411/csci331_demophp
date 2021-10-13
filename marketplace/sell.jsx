@@ -26,7 +26,7 @@ function Main() {
       formData.append("description", description);
       formData.append(
         "price_cents",
-        Math.trunc(price_cents) + Math.trunc(price_dollars)
+        Math.trunc(price_cents) + 100 * Math.trunc(price_dollars)
       );
       await new Promise((resolve) => setTimeout(resolve, 1000));
 
