@@ -83,6 +83,7 @@ function Main() {
                     type="number"
                     id="price_dollars"
                     name="price_dollars"
+                    min="0"
                 ></input>
                 <div
                     style={{
@@ -98,6 +99,8 @@ function Main() {
                     type="number"
                     id="price_cents"
                     name="price_cents"
+                    max="99"
+                    min="0"
                 ></input>
             </div>
             <div>
