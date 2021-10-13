@@ -4,7 +4,7 @@
     $password = $_POST['password'];
 
     // abort with 400 if the fields are blank
-    if ($username === "" || $password === ""){
+    if (!is_string($username) || $username === "" || !is_string($password) || $password === ""){
             http_response_code(400);
             die("username or password is empty");
     }

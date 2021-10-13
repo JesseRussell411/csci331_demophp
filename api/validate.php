@@ -4,9 +4,10 @@
     try {
         // echo userValidate() ? 'true' : 'false';
         // http_response_code(200);
-        if (userValidate()){
+        $username = validateAndGetUsername();
+        if ($username !== false){
             http_response_code(200);
-            echo $_SESSION['user'];
+            echo $username;
         }
         else{
             http_response_code(401);

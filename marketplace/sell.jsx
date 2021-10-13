@@ -31,7 +31,7 @@ function Main() {
       await new Promise((resolve) => setTimeout(resolve, 1000));
 
       // send request
-      const result = await fetch("marketplace/api/createMarketplaceItem.php", {
+      const result = await fetch("marketplace/api/createItem.php", {
         method: "post",
         body: formData,
       });
@@ -40,16 +40,20 @@ function Main() {
       const posted = result.status === 201;
       const message = await result.text();
       if (posted) alert("👍\nItem posted to marketplace.");
-      else ifPostFailed(message);
+      else ifPostFailed(result.status, message);
     } catch (e) {
-      ifPostFailed(`Site Error:\n${e}`);
+      ifPostFailed(null, `Site Error:\n${e}`);
       throw e;
     } finally {
       setSubmitting(false);
     }
 
-    function ifPostFailed(message) {
-      alert(`👎\nFailed to post item to marketplace\n\n${message}`);
+    function ifPostFailed(status, message) {
+      alert(
+        `👎\nFailed to post item to marketplace${
+          status != null ? `\nstatus: ${status}` : ""
+        }\n\n${message}`
+      );
     }
   }
 

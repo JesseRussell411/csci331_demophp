@@ -1,46 +1,108 @@
 const reactContainer = document.getElementById("react_container");
-const {useState, useEffect} = React;
+const { useState, useEffect } = React;
 
-function LoadingIndicator(){
-    return <p>loading...</p>;
+function LoadingIndicator() {
+  return <p>loading...</p>;
 }
 
-function Main(){
-    const [items, setItems] = useState(null);
-
-    useEffect(async () => {
-        if (items == null){
-        const result = await fetch("marketplace/api/getAllItems.php", {
-            method: "GET",
-        });
-
-        if (result.ok){
-            setItems(await result.json());
-        }
-    }
+function Main() {
+  const [items, setItems] = useState(null);
+  const [username, setUsername] = useState(null);
+  async function fetchItems() {
+    const result = await fetch("marketplace/api/getAllItems.php", {
+      method: "GET",
     });
 
-    function formatMoney(amount_cents){
-        const dollars = Math.trunc(amount_cents / 100);
-        const cents = amount_cents % 100;
-        return `${dollars}.${cents}`;
-    }
+    if (result.ok) return await result.json();
+    else throw new Error(await result.text());
+  }
 
-    return <div>
-        <h1>Place-holder marketplace, Work In Progress</h1>
-        {
-            items == null ? <LoadingIndicator/> :
+  async function refreshItems() {
+    setItems(await fetchItems());
+  }
+
+  /**
+   * @retuns {string} Username of who's logged in or an empty string if nobody's logged in.
+   */
+  async function whoAmI() {
+    const result = await fetch("api/validate.php", {
+      method: "GET",
+    });
+    if (result.ok) return await result.text();
+    else return "";
+  }
+
+  function DeleteButton({ title }) {
+    async function handleDelete() {
+      if (confirm(`Item '${title}' will be deleted.`)) {
+        const result = await fetch(
+          `marketplace/api/removeItem.php?title=${title}`,
+          {
+            method: "GET",
+          }
+        );
+
+        if (result.ok) {
+          refreshItems();
+          alert("👍Item Deleted.");
+        } else {
+          alert(
+            `👎Failed to delete item.\nstatus: ${
+              result.status
+            }\n\n${await result.text()}`
+          );
+        }
+      }
+    }
+    return <button onClick={handleDelete}>Delete Me</button>;
+  }
+
+  useEffect(() => {
+    if (items == null) {
+      refreshItems();
+    }
+  });
+
+  useEffect(async () => {
+    if (username == null) {
+      setUsername(await whoAmI());
+    }
+  });
+
+  function formatMoney(amount_cents) {
+    const dollars = Math.trunc(amount_cents / 100);
+    const cents = amount_cents % 100;
+    return `${dollars}.${`${cents}`.padEnd(2, '0')}`;
+  }
+
+  return (
+    <div>
+      <h1>Place-holder marketplace, Work In Progress</h1>
+      {items == null ? (
+        <LoadingIndicator />
+      ) : (
         <ul>
-        {items.map(i => <li>{i[1]}<ul>
-            <li>{i[0]}</li>
-            <li>{i[2]}</li>
-            <li>${formatMoney(parseInt(i[3]))}</li>
-        </ul></li>)}
-        </ul>}
+          {items.map((i) => (
+            <li>
+              {i[1]}
+              <ul>
+                <li>{i[0]}</li>
+                <li>{i[2]}</li>
+                <li>${formatMoney(parseInt(i[3]))}</li>
+                {username === i[0] ? (
+                  <li>
+                    <DeleteButton title={i[1]} />
+                  </li>
+                ) : (
+                  ""
+                )}
+              </ul>
+            </li>
+          ))}
+        </ul>
+      )}
     </div>
+  );
 }
 
-ReactDOM.render(
-    <Main/>,
-    reactContainer
-);
+ReactDOM.render(<Main />, reactContainer);

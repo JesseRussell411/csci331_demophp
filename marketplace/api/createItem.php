@@ -22,7 +22,7 @@ if ($username === $_SESSION['user'] || true){
 
 
         try{
-            createMarketplaceItem($username, $title, $description, $price_cents);
+            createItem($username, $title, $description, $price_cents);
             http_response_code(201);
         }
         catch(MarketplaceItemExistsException $e){

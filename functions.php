@@ -62,7 +62,11 @@ function showProfile($user) {
 
 
 // my additions:
-class UserExistsException extends Exception {
+
+class NotFoundException extends Exception{}
+class AlreadyExistsException extends Exception{}
+
+class UserExistsException extends AlreadyExistsException {
     public $username;
 
     public function __construct(string $username, Throwable $previouse = NULL){
@@ -153,6 +157,24 @@ function userValidate(){
         $authenticationString = $_SESSION['authentication'];
         
         return validateAuthenticationString($username, $authenticationString);
+    }
+    else {
+        return false;
+    }
+}
+
+/**
+ * @return String|bool The username of whoever is currently logged in or false if nobody is logged in.
+ */
+function validateAndGetUsername(){
+    if (isset($_SESSION['user'])){
+        $username = $_SESSION['user'];
+        $authenticationString = $_SESSION['authentication'];
+        
+        if (validateAuthenticationString($username, $authenticationString))
+            return $username;
+        else
+            return false;
     }
     else {
         return false;
