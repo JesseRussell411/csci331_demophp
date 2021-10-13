@@ -1,7 +1,6 @@
 <?php
  require_once 'header.php';
-
-if (!$loggedin) die("</div></body></html>");
+if ($user === false) die("<p>You are not logged in.</p></div></body></html>");
 
 $result = queryMysql("SELECT * FROM profiles WHERE user='$user'");
     
@@ -79,5 +78,8 @@ echo "<br><hr>";
 echo "<h3>Your Current Profile</h3>";
 showProfile($user);
 
-require_once 'footer.php';
+?>
+
+<?php
+    require_once 'footer.php';
 ?>

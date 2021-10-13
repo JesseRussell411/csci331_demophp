@@ -17,12 +17,14 @@ _INIT;
 
 require_once 'functions.php';
 
-if (isset($_SESSION['user'])) {
-    $user     = $_SESSION['user'];
-    $loggedin = TRUE;
-    $userstr  = "Logged in as: $user";
-}
-else $loggedin = FALSE;
+$user = validateAndGetUsername();
+$loggedin = $user !== false;
+// if (isset($_SESSION['user'])) {
+//     $user     = $_SESSION['user'];
+//     $loggedin = TRUE;
+//     $userstr  = "Logged in as: $user";
+// }
+// else $loggedin = FALSE;
 
 echo <<<_HEADER_OPEN
     

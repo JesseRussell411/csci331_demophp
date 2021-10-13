@@ -78,7 +78,7 @@ function Main() {
   function formatMoney(amount_cents) {
     const dollars = Math.trunc(amount_cents / 100);
     const cents = amount_cents % 100;
-    return `${dollars}.${`${cents}`.padEnd(2, "0")}`;
+    return `${dollars}.${`${cents}`.padStart(2, "0")}`;
   }
 
   return (
