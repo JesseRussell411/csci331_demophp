@@ -146,7 +146,7 @@ function validateAuthenticationString($username, $authenticationString){
 
 /** Store user authentication string in session */
 function createUserAuthentication(){
-    $username = strtolower($_SESSION['user']);
+    $username = $_SESSION['user'];
     $_SESSION['authentication'] = createAuthenticationString($username);
 }
 
@@ -186,9 +186,9 @@ function validateAndGetUsername(){
  * @return bool? Whether the login was successful or not. If null: a different user is already logged in.
  */
 function userLogin($username, $password){
-    $username == strtolower($username);
-    if (userValidate()){
-        if ($_SESSION['user'] === $username){
+    $loggedInUser = validateAndGetUsername();
+    if ($loggedInUser !== false){
+        if ($loggedInUser === $username){
             return true;
         } else {
             return NULL;

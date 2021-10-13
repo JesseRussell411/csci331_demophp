@@ -28,7 +28,6 @@ function Main() {
         "price_cents",
         Math.trunc(price_cents) + 100 * Math.trunc(price_dollars)
       );
-      await new Promise((resolve) => setTimeout(resolve, 1000));
 
       // send request
       const result = await fetch("marketplace/api/createItem.php", {
