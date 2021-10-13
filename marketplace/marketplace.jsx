@@ -84,7 +84,7 @@ function Main() {
   return (
     <div>
       <h1>Place-holder marketplace, Work In Progress</h1>
-      {items == null ? (
+      {items == null || username == null ? (
         <LoadingIndicator />
       ) : (
         <ul>
