@@ -19,6 +19,8 @@ require_once 'functions.php';
 
 $user = validateAndGetUsername();
 $loggedin = $user !== false;
+if ($loggedin)
+    $userstr = "Logged in as: $user";
 // if (isset($_SESSION['user'])) {
 //     $user     = $_SESSION['user'];
 //     $loggedin = TRUE;
