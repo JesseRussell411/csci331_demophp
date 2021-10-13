@@ -1,4 +1,5 @@
 <?php
+session_start();
 require_once 'header.php';
 ?>
     <!-- react getting-started guide from: https://reactjs.org/docs/add-react-to-a-website.html#add-react-in-one-minute -->
@@ -11,7 +12,7 @@ require_once 'header.php';
     <!-- slow babel translator for jsx (fine for this I guess) -->
     <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
     <!-- Load React component. -->
-    <script type ="text/babel"src="marketplace/marketplace.jsx"></script>
+    <script type ="text/babel"src="marketplace/sell.jsx"></script>
 <?php
 require_once 'footer.php';
 ?>

@@ -7,6 +7,20 @@ $price_cents = $_POST['price_cents'];
 
 if ($username === $_SESSION['user'] || true){
     if (userValidate()){
+        if ($title === ""){
+            http_response_code(400);
+            die("No title provided.");
+        }
+        else if ($price_cents < 0){
+            http_response_code(400);
+            die("Price cannot be negative.");
+        }
+        else if (!ctype_digit($price_cents)){
+            http_response_code(400);
+            die("Price is not a number.");
+        }
+
+
         try{
             createMarketplaceItem($username, $title, $description, $price_cents);
             http_response_code(201);
