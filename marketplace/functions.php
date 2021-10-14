@@ -35,7 +35,7 @@ class MarketplaceItemNotFoundException extends NotFoundException {
 $getAllItemsStatement = $connection->prepare("SELECT * FROM `marketplaceitems`");
 $getUsersItemsStatement = $connection->prepare("SELECT * FROM `marketplaceitems` WHERE user = ?");
 $createItemStatement = $connection->prepare("INSERT INTO `marketplaceitems` VALUES(?, ?, ?, ?)");
-$removeItemStatement = $connection->prepare("DELETE FROM `marketplaceitems` WHERE title = ?");
+$removeItemStatement = $connection->prepare("DELETE FROM `marketplaceitems` WHERE user = ? AND title = ?");
 $getItemOwnerStatement = $connection->prepare("SELECT user FROM `marketplaceitems` WHERE title = ?");
 
 function getAllMarketplaceItems(){
@@ -76,9 +76,9 @@ function getUsersMarketplaceItems($username){
     return $getUsersItemsStatement->get_result()->fetch_all();
 }
 
-function removeItem($title){
+function removeItem($username, $title){
     global $removeItemStatement;
-    $removeItemStatement->bind_param("s", $title);
+    $removeItemStatement->bind_param("ss", $username, $title);
     $removeItemStatement->execute();
 
     if ($removeItemStatement->affected_rows === 0)

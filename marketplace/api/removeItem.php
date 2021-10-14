@@ -6,7 +6,7 @@
     try{
         $username = validateAndGetUsername();
         if ($username !== false && $username === getItemOwner($title)){
-            removeItem($title);
+            removeItem($username, $title);
             http_response_code(200);
         }
         else {
