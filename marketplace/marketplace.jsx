@@ -71,7 +71,7 @@ function Main() {
             ) : (
                 <ul>
                     {items.map((i) => (
-                        <li>
+                        <li style={{margin:"10px"}}>
                             <MarketplaceItem
                                 key={i[1]}
                                 username={i[0]}

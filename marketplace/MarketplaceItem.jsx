@@ -72,9 +72,12 @@ function MarketplaceItem({
 
                     justifyContent: "space-between",
                     flexGrow: "1",
+                    borderBottom:"1px solid black",
                 }}
             >
-                <div>{title}</div>
+                <div style={{
+                    fontWeight:"bold",
+                }}>{title}</div>
                 {onDelete !== undefined ? <DeleteButton /> : ""}
             </div>
 
@@ -93,9 +96,11 @@ function MarketplaceItem({
                     display: "flex",
                     justifyContent: "space-between",
                     flexGrow: "1",
+                    
+                    
                 }}
             >
-                <div>{username}</div>
+                <div>seller: {username}</div>
                 <div>${formatMoney(price_cents)}</div>
             </div>
         </div>
