@@ -5,12 +5,12 @@
 
     try{
         $username = validateAndGetUsername();
-        if ($username !== false && $username === getItemOwner($title)){
+        if ($username !== false){
             removeItem($username, $title);
             http_response_code(200);
         }
         else {
-            http_response_code(403);
+            http_response_code(401);
         }
     }
     catch(MarketplaceItemNotFoundException $e){

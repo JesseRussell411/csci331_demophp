@@ -1,6 +1,8 @@
 const reactContainer = document.getElementById("react_container");
 const { useState, useEffect } = React;
 
+const YOU_SURE_TIMEOUT = 3000;
+
 function MarketplaceItem({
     username,
     title,
@@ -8,40 +10,93 @@ function MarketplaceItem({
     price_cents,
     onDelete = undefined,
 }) {
-    const [deleting, setDeleting] = useState(false);
+    function DeleteButton() {
+        const [deleting, setDeleting] = useState(false);
 
-    async function handleDelete(event) {
-        event.preventDefault();
+        const [youSure, setYouSure] = useState(false);
+        const [ysTimeoutNumnber, setYsTimeoutNumber] = useState(undefined);
 
-        
-        const promise = onDelete(title);
-        if (promise instanceof Promise){
-            promise.finally(() => setDeleting(false));
+        // REACT doesn't like it when you try to set the state of an unmounted
+        // component. This useEffect cleanup here is like a destructor. The
+        // code in the inner most lambda gets called when the compoent
+        // unmounts; in this case: when the item is deleted.
+        useEffect(() => () => clearTimeout(ysTimeoutNumnber));
+
+        function handleDelete() {
+            if (!youSure) {
+                setYouSure(true);
+                setYsTimeoutNumber(
+                    setTimeout(() => setYouSure(false), YOU_SURE_TIMEOUT)
+                );
+            } else {
+                const deletePromise = onDelete(title);
+
+                if (deletePromise instanceof Promise) {
+                    setDeleting(true);
+                    return deletePromise.finally(() => setDeleting(false));
+                }
+            }
         }
-        setDeleting(true);
+
+        return (
+            <button onClick={handleDelete} disabled={deleting}>
+                {(() => {
+                    if (deleting) {
+                        return "deleting...";
+                    } else if (youSure) {
+                        return "You Sure?";
+                    } else {
+                        return "Delete";
+                    }
+                })()}
+            </button>
+        );
     }
-    function formatMoney(amount_cents) {
-        const dollars = Math.trunc(amount_cents / 100);
-        const cents = amount_cents % 100;
-        return `${dollars}.${`${cents}`.padStart(2, "0")}`;
-    }
+
     return (
-        <div>
-            {title}
-            <ul>
-                <li>{username}</li>
-                <li>{description}</li>
-                <li>${formatMoney(parseInt(price_cents))}</li>
-                {onDelete != undefined ? (
-                    <li>
-                        <button onClick={handleDelete} disabled={deleting}>
-                            {deleting ? "deleting..." : "Delete"}
-                        </button>
-                    </li>
-                ) : (
-                    ""
-                )}
-            </ul>
+        <div
+            style={{
+                display: "flex",
+                flexDirection: "column",
+
+                padding: "1vh",
+                borderRadius: "1vh",
+                boxShadow: "0.5vh 0.5vh 1vh rgba(0,0,0,0.5)",
+            }}
+        >
+            {/* Head Row: title and delete button */}
+            <div
+                style={{
+                    display: "flex",
+
+                    justifyContent: "space-between",
+                    flexGrow: "1",
+                }}
+            >
+                <div>{title}</div>
+                {onDelete !== undefined ? <DeleteButton /> : ""}
+            </div>
+
+            {/* Description */}
+            <div
+                style={{
+                    flexGrow: "2",
+                }}
+            >
+                {description}
+            </div>
+
+            {/* Footer Row: username and price */}
+            <div
+                style={{
+                    display: "flex",
+                    justifyContent: "space-between",
+                    flexGrow: "1",
+                }}
+            >
+                <div>{username}</div>
+                <div>${formatMoney(price_cents)}</div>
+            </div>
         </div>
     );
 }

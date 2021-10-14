@@ -14,3 +14,12 @@ async function whoAmI() {
         throw new Error(awaitresult.text());
     }
 }
+
+/**
+ * @returns the amount in cents formatted in a string of form: d.cc where d in dollars and c is cents. example: 5.34
+ */
+function formatMoney(amount_cents) {
+    const dollars = Math.trunc(amount_cents / 100);
+    const cents = amount_cents % 100;
+    return `${dollars}.${`${cents}`.padStart(2, "0")}`;
+}
