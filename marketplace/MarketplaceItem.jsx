@@ -29,6 +29,7 @@ function MarketplaceItem({
                     setTimeout(() => setYouSure(false), YOU_SURE_TIMEOUT)
                 );
             } else {
+                setYouSure(false);
                 const deletePromise = onDelete(title);
 
                 if (deletePromise instanceof Promise) {
