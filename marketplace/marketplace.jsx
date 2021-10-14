@@ -69,11 +69,11 @@ function Main() {
             {items == null || loggedInUsername == null ? (
                 <LoadingIndicator />
             ) : (
-                <ul>
+                <div>
                     {items.map((i) => (
-                        <li style={{margin:"10px"}}>
+                        <div style={{margin:"10px"}}>
                             <MarketplaceItem
-                                key={i[1]}
+                                key={i[0]+i[1]}
                                 username={i[0]}
                                 title={i[1]}
                                 description={i[2]}
@@ -84,9 +84,9 @@ function Main() {
                                         : undefined
                                 }
                             />
-                        </li>
+                        </div>
                     ))}
-                </ul>
+                    </div>
             )}
         </div>
     );
