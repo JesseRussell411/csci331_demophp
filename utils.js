@@ -23,3 +23,8 @@ function formatMoney(amount_cents) {
     const cents = amount_cents % 100;
     return `${dollars}.${`${cents}`.padStart(2, "0")}`;
 }
+
+
+function isNonEmptyString(value){
+    return typeof value === "string" && value !== "";
+}
