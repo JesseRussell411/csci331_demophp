@@ -2,6 +2,8 @@
 session_start();
 require_once 'header.php';
 ?>
+    <h1>Sell</h1>
+    <h4>What can you part with?</h4>
     <!-- react getting-started guide from: https://reactjs.org/docs/add-react-to-a-website.html#add-react-in-one-minute -->
     <div id="react_container"></div>
 

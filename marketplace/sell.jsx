@@ -105,10 +105,10 @@ function Main() {
                             onChange={(e) => setDescription(e.target.value)}
                         ></textarea>
                     </div>
-                    <div>
+                    <div style={{marginBottom:"10px"}}>
                         <label>Price</label>
                         <br />
-                        {"$"}
+                        <span style={{fontSize: "20px", marginRight: "10px"}}>$</span>
                         <input
                             type="number"
                             id="price_dollars"
@@ -144,8 +144,8 @@ function Main() {
                     </div>
                 </form>
             </div>
-            <div id="sellitemPreview">
-                <h2>preview</h2>
+            <div id="sellItemPreview">
+                <h3>preview</h3>
                 <MarketplaceItem
                     username={username}
                     title={title}
