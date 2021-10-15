@@ -40,10 +40,10 @@ echo <<<_HEADER_OPEN
 _HEADER_OPEN;
 showUserPic($user);
 echo "</div></div>";
-
+echo "</header>";
 if ($loggedin) {
 echo <<<_LOGGEDIN
-            </header>
+            
 
             <nav><ul>
                 <li><a href='members.php?view=$user'>Home</a></li>
