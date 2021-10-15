@@ -61,9 +61,13 @@ function sanitizeString($var){
     return $connection->real_escape_string($var);
 }
 
+function userHasPic($user) {
+    return (file_exists("userpics/$user.jpg"));
+}
+
 function showUserPic($user){
     if (file_exists("userpics/$user.jpg"))
-    echo "<img class='userpic' src='userpics/$user.jpg'>";
+        echo "<img class='userpic' src='userpics/$user.jpg'>";
 }
 
 function showProfile($user) {

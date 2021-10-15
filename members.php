@@ -40,7 +40,7 @@ elseif (isset($_GET['remove'])) {
 $result = queryMysql("SELECT user FROM members ORDER BY user");
 $num    = $result->num_rows;
 
-echo "<div class='tile basicPage'>";
+echo "<div class='tile basicPage' id='membersListPage'>";
 echo "<h3>Members: $clubstr</h3><ul>";
 
 for ($j = 0 ; $j < $num ; ++$j) {
@@ -70,6 +70,13 @@ for ($j = 0 ; $j < $num ; ++$j) {
         echo " [<a href='members.php?add=" . $row['user'] . "'>$follow</a>]";
     else
         echo " [<a href='members.php?remove=" . $row['user'] . "'>drop</a>]";
+
+    if (userHasPic($row['user'])){
+        echo '<div id="memberListPicContainer">';
+        showUserPic($row['user']);
+        echo '</div>';
+    }
+    
 }
 echo "</ul>";
 echo "</div>";
