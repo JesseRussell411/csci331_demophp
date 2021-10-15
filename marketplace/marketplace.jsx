@@ -1,8 +1,23 @@
 const reactContainer = document.getElementById("react_container");
 const { useState, useEffect } = React;
 
+//slightly fancy loading indicator.
 function LoadingIndicator() {
-    return <p>loading...</p>;
+    const [dots, setDots] = useState("...");
+    useEffect(() => {
+        //create loading animation interval
+        const intervalNumber = setInterval(() => {
+            if (dots === "......") {
+                setDots("");
+            } else {
+                setDots(dots + ".");
+            }
+        }, 100);
+
+        //return destructor to clear the interval when loading is finished
+        return () => clearInterval(intervalNumber);
+    });
+    return <p>loading{dots}</p>;
 }
 
 function Main() {
@@ -100,8 +115,7 @@ function Main() {
 
     return (
         <div id="marketplaceContainer">
-            <div id="marketplaceSidebar"
-            className="tile">
+            <div id="marketplaceSidebar" className="tile">
                 <form onSubmit={handleSortFormSubmit}>
                     <h4>Sorting</h4>
                     <div id="sortingOptions">
