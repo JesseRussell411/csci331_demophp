@@ -20,7 +20,7 @@ session_start();
 
 
 // TODO: put this in an ini file or something
-$secret = "alkds;fjalfnf32on3wnfdaowfn";
+$secret = "alkds;fjalfnf32on3wnasdfasdfewfdq3vq32bvq346b455e6&%^&#$&Nynw456nw45ynW56fdaowfn";
 // how long the user is logged in for
 $logginTimeout = new DateInterval("PT1H"/*1 hour*/);
 // $logginTimeout = new DateInterval("PT10S"/*10 seconds*/); /*<--- for testing*/
@@ -198,11 +198,11 @@ function createUserAuthentication($username){
 function validateAndGetUsername(){
     global $logginTimeout;
 
-    if (isset($_SESSION['user'])){
+    if (isset($_SESSION['user']) && isset($_SESSION['signInSecondsSinceEpoch'])){
         $username = $_SESSION['user'];
         $authenticationString = $_SESSION['authentication'];
         $signInTimeString = $_SESSION['signInSecondsSinceEpoch'];
-        
+
         if (validateAuthenticationString($username, $signInTimeString, $authenticationString)){
             $currentTime = new DateTime();
             $signInTime = DateTime::createFromFormat("U", $signInTimeString);
