@@ -140,7 +140,13 @@ nav li:nth-last-child(1) a {
     height: 120px;
     width: 120px;
 }
+
 #profilePicContainer {
+    height: 200px;
+    width: 200px;
+}
+
+#memberPicContainer {
     height: 200px;
     width: 200px;
 }

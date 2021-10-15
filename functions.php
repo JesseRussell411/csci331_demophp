@@ -67,7 +67,6 @@ function showUserPic($user){
 }
 
 function showProfile($user) {
-    showUserPic($user);
 
     $result = queryMysql("SELECT * FROM profiles WHERE user='$user'");
 

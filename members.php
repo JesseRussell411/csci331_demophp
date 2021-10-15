@@ -15,6 +15,9 @@ if (isset($_GET['view'])) {
         $name = "$view's";
 
     echo "<h3>$name Profile</h3>";
+    echo '<div id="memberPicContainer">';
+    showUserPic($view);
+    echo '</div>';
     showProfile($view);
     echo "<a href='messages.php?view=$view'>View $name messages</a>";
     die(require 'footer.php');
