@@ -47,7 +47,7 @@ else
                 <ul>
                     <li>Used by the two pages I added</li>
                     <li>It's really easy to add react to an existing webpage, so I did.</li>
-                    <li>I wanted to make the front end rather interactive since it's basically pure javascript so hopefully some of that's noticeably.</li>
+                    <li>I wanted to make the front end rather interactive since it's basically pure javascript so hopefully some of that's noticeable.</li>
                 </ul>
             </li>
             <li>two new pages <ul>
@@ -66,7 +66,7 @@ else
                 </ul>
             </li>
             <li>css<ul>
-                   <li>The look I was going for was "classic macOs". Its most prevalent on the marketplace and sell pages.</li>
+                   <li>The look I was going for was "classic macOs".</li>
                    <li>I tried to make the site more responsive to screen size.</li>
                    <li>Marketplace is responsive to screen width, try resizing to something like the width of a phone screen</li>
                 </ul>
