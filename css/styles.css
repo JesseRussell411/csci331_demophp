@@ -40,11 +40,9 @@ html {
 
 #wrapper {
     margin: auto;
-    border-color: #222;
-    border-style: dotted;
-    border-width: 0 5px;
     margin: 10px;
     width: 80vw;
+    box-shadow: var(--box-shadow);
 }
 
 header {
@@ -78,7 +76,7 @@ nav ul {
     list-style-type: none;
     overflow: hidden;
     color: #ddd;
-    background-color: var(--secondary-color);
+    background-color: var(--background-color);
     margin: 0;
     padding: 0;
 }
