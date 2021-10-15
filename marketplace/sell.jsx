@@ -90,8 +90,9 @@ function Main() {
                         <label htmlFor="title">Title</label>
                         <br />
                         <input
+                            id="sellItemTitle"
                             type="text"
-                            id="title"
+                            
                             name="title"
                             onChange={(e) => setTitle(e.target.value)}
                         ></input>
@@ -100,6 +101,7 @@ function Main() {
                         <label htmlFor="description">Description</label>
                         <br />
                         <textarea
+                            className="tile"
                             id="description"
                             name="description"
                             onChange={(e) => setDescription(e.target.value)}

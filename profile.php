@@ -66,7 +66,7 @@ if (isset($_FILES['image']['name'])) {
 echo <<<_END
     <form method='post' action='profile.php' enctype='multipart/form-data'>
         <h3>Enter or edit your bio</h3>
-        <textarea name='text'>$text</textarea><br>
+        <textarea name='text' class='tile'>$text</textarea><br>
         <h3>Upload an image</h3>
         Image: <br>
         <input type='file' name='image' size='14'><br><br>

@@ -38,7 +38,7 @@ elseif (isset($_GET['remove'])) {
 $result = queryMysql("SELECT user FROM members ORDER BY user");
 $num    = $result->num_rows;
 
-echo "<div class=\"tile\" id=\"membersPage\">";
+echo "<div class='tile basicPage'>";
 echo "<h3>Members: $clubstr</h3><ul>";
 
 for ($j = 0 ; $j < $num ; ++$j) {

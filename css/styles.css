@@ -171,13 +171,6 @@ footer a {
     color: white;
 }
 
-#marketplaceContainer {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-evenly;
-    
-    width:100%;
-}
 
 .tile {
     border: 1px solid rgba(0,0,0,0.5);
@@ -186,17 +179,52 @@ footer a {
     padding: 20px;
 }
 
+/*some responsive stuff*/
+#sortingOptions {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+}
+#sortingOptions > div {
+    margin:10px;
+}
+#marketplaceSortButton {
+    display: block;
+    margin:10px;
+    width:10ch;
+}
+#marketplaceContainer {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: stretch;
+    
+    width:100%;
+}
 #marketplaceSidebar {
-    width:10%;
+    /* width:10%; */
     min-width:13ch;
     padding: 10px;
-    /* padding-right: 20px; */
-    /* padding-left: 10px; */
-    /* border-radius: var(--border-radius); */
-    /* background-color: var(--forground-color); */
-    /* box-shadow: var(--box-shadow); */
     margin-right: var(--margin);
 }
+@media screen and (max-width: 800px) {
+    #sortingOptions {
+        flex-direction:row;
+        justify-content: space-between;
+    }
+    #marketplaceContainer {
+        flex-direction: column;
+    }
+    #marketplaceSidebar {
+        margin-right: 0;
+        margin-bottom: var(--margin);
+    }
+
+    #wrapper {
+        width: 99vw;
+    }
+}
+/* END some responsive stuff*/
 
 #marketplaceMain {
     flex-grow: 1;
@@ -217,7 +245,13 @@ footer a {
     padding: 20px;
 }
 
-#membersPage {
+#sellItemTitle{
+    width:50%;
+    min-width:10ch;
+}
+
+
+.basicPage {
     margin-top: 20px;
     display: inline-block;
 }

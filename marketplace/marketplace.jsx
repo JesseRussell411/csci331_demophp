@@ -157,18 +157,21 @@ function Main() {
                             />
                             <label htmlFor="sortType-price">Price</label>
                         </div>
+                        <div>
+                            <input
+                                type="checkbox"
+                                name="reverse"
+                                id="sort-reverse"
+                            />
+                            <label htmlFor="sort-reverse">Reverse</label>
+                        </div>
                     </div>
-                    <div>
-                        <input
-                            type="checkbox"
-                            name="reverse"
-                            id="sort-reverse"
-                        />
-                        <label htmlFor="sort-reverse">Reverse</label>
-                    </div>
-                    <div>
-                        <input type="submit" value="sort"></input>
-                    </div>
+
+                    <input
+                        id="marketplaceSortButton"
+                        type="submit"
+                        value="sort"
+                    ></input>
                 </form>
             </div>
 
