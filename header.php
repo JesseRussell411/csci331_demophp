@@ -35,7 +35,7 @@ echo <<<_HEADER_OPEN
         <div id="wrapper">
         <header>
             <div id='logo'>eye Space</div>
-            <div class='username'><div>$user</div>
+            <div class='username'><div>$userstr</div>
             <div id="headerPicContainer">
 _HEADER_OPEN;
 showUserPic($user);
@@ -43,6 +43,7 @@ echo "</div></div>";
 
 if ($loggedin) {
 echo <<<_LOGGEDIN
+            </header>
 
             <nav><ul>
                 <li><a href='members.php?view=$user'>Home</a></li>
@@ -70,7 +71,6 @@ _GUEST;
 
 echo <<<_HEADER_CLOSE
 
-        </header>
         
         <div id="content">
 _HEADER_CLOSE;

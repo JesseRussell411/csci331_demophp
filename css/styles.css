@@ -51,6 +51,8 @@ header {
     position: relative;
     display: flex;
     justify-content: space-between;
+    align-items: center;
+    padding: 0 20px 0 20px;
 
 }
 
@@ -61,16 +63,16 @@ header {
     margin: 0 40px;
     font-variant: small-caps;
     letter-spacing: 0.05em;
-    font-size: 2em;
+    font-size: 2.5em;
     text-align: center;
     color: #eeeeee;
     line-height: 1em;
 }
 
 nav {
-    position: absolute;
+    /* position: absolute; */
     width: 100%;
-    bottom: 0;
+    /* bottom: 0; */
     background-color: #777;
 }
 
@@ -114,7 +116,7 @@ nav li:nth-last-child(1) a {
 
 .username {
     font-family: "Lora", serif;
-    font-size: 1.2em;
+    font-size: 1.5em;
     font-style: italic;
     text-align: right;
     padding-right: 5px;
@@ -135,9 +137,8 @@ nav li:nth-last-child(1) a {
     margin: 0 40px 20px 0px;
 }
 #headerPicContainer {
-    height: 70px;
-    width: 70px;
-    margin:10px;
+    height: 120px;
+    width: 120px;
 }
 #profilePicContainer {
     height: 200px;
@@ -181,6 +182,7 @@ footer a {
 
 #marketplaceSidebar {
     width:10%;
+    min-width:10ch;
     padding: 10px;
     /* padding-right: 20px; */
     /* padding-left: 10px; */
