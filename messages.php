@@ -32,7 +32,7 @@ if ($view != "") {
 
   echo <<<_END
   <form method='post' action='messages.php?view=$view'>
-    <fieldset data-role="controlgroup" data-type="horizontal">
+    <fieldset class="tile" data-role="controlgroup" data-type="horizontal">
         <legend>Type here to leave a message</legend>
         <input type='radio' name='pm' id='public' value='0' checked='checked'>
         <label for="public">Public Post</label>

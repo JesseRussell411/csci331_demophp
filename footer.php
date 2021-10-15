@@ -2,10 +2,11 @@
   echo <<<_END
     </div>
         <footer>
-            <h3>About the Template</h3>
-            <p>$clubstr is a template for MSU CSCI 491 students to create their own LAMP stack web application. Once up and running, this footer content and other code withing the project is intented to be replaced with custom modifications.</p>
-            <p>This assignment is derived from Robin Nixon's book, "Learning PHP, JavaScript, and MySQL" 5th Edition, (espececially Chapters 2, 8, and 27) available for online checkout through the MSU Library; original code samples (particularly the folder called <em>robinsnest</em> ) are available online at the book's <a href="http://lpmj.net/5thedition/">companion website</a>.</p>
+            <h3>About $clubstr</h3>
+            <p>$clubstr is the hot-new-retro-newage-hipster-pop-social-influencer-scene-hot-social-new-radical-retro-social site to meet new people.</p>
+            <p>Jump in and see the difference with EYE SPACE, look at this website, see it, look at it. have fun. look around. see it. discover new things. try new things. look at new things. look at things. experience eyespace and experience the new and the old colliding in space.</p>
         </footer>
+        </div>
         </div>
     </body>
 </html>

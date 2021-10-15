@@ -2,6 +2,7 @@
 require_once 'header.php';
 ?>
     <!-- react getting-started guide from: https://reactjs.org/docs/add-react-to-a-website.html#add-react-in-one-minute -->
+    <h1>Marketplace</h1>
     <div id="react_container"></div>
 
     <!-- Load React. -->

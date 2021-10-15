@@ -1,5 +1,5 @@
 <?php
-$clubstr = 'Csci-491 Demo Lamp Stack Site';
+$clubstr = 'EYE SPACE';
 $userstr = 'Welcome Guest';
 
 echo <<<_INIT
@@ -31,6 +31,7 @@ if ($loggedin)
 echo <<<_HEADER_OPEN
     
     <body>
+    <div class="outerWrapper">
         <div id="wrapper">
         <header>
             <div id='logo'>eye Space</div>

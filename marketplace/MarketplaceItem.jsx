@@ -56,13 +56,11 @@ function MarketplaceItem({
 
     return (
         <div
+            id="marketPlaceItem"
+            className="tile"
             style={{
                 display: "flex",
                 flexDirection: "column",
-
-                padding: "1vh",
-                borderRadius: "1vh",
-                boxShadow: "0.5vh 0.5vh 1vh rgba(0,0,0,0.5)",
             }}
         >
             {/* Head Row: title and delete button */}

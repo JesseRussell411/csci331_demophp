@@ -73,8 +73,7 @@ function Main() {
     });
 
     function sortBy(sortType) {
-            setItems([...items].sort(sortType));
-        
+        setItems([...items].sort(sortType));
     }
 
     function handleSortFormSubmit(e) {
@@ -100,46 +99,50 @@ function Main() {
     }
 
     return (
-        <div>
-            <div>
+        <div id="marketplaceContainer">
+            <div id="marketplaceSidebar"
+            className="tile">
                 <form onSubmit={handleSortFormSubmit}>
-                    <div>
-                        <input
-                            type="radio"
-                            name="sortType"
-                            value="username"
-                            id="sortType-username"
-                        />
-                        <label htmlFor="sortType-username">Username</label>
-                    </div>
-                    <div>
-                        <input
-                            type="radio"
-                            name="sortType"
-                            value="title"
-                            id="sortType-title"
-                        />
-                        <label htmlFor="sortType-title">Title</label>
-                    </div>
-                    <div>
-                        <input
-                            type="radio"
-                            name="sortType"
-                            value="description"
-                            id="sortType-description"
-                        />
-                        <label htmlFor="sortType-description">
-                            Description
-                        </label>
-                    </div>
-                    <div>
-                        <input
-                            type="radio"
-                            name="sortType"
-                            value="price"
-                            id="sortType-price"
-                        />
-                        <label htmlFor="sortType-price">Price</label>
+                    <h4>Sorting</h4>
+                    <div id="sortingOptions">
+                        <div>
+                            <input
+                                type="radio"
+                                name="sortType"
+                                value="username"
+                                id="sortType-username"
+                            />
+                            <label htmlFor="sortType-username">Username</label>
+                        </div>
+                        <div>
+                            <input
+                                type="radio"
+                                name="sortType"
+                                value="title"
+                                id="sortType-title"
+                            />
+                            <label htmlFor="sortType-title">Title</label>
+                        </div>
+                        <div>
+                            <input
+                                type="radio"
+                                name="sortType"
+                                value="description"
+                                id="sortType-description"
+                            />
+                            <label htmlFor="sortType-description">
+                                Description
+                            </label>
+                        </div>
+                        <div>
+                            <input
+                                type="radio"
+                                name="sortType"
+                                value="price"
+                                id="sortType-price"
+                            />
+                            <label htmlFor="sortType-price">Price</label>
+                        </div>
                     </div>
                     <div>
                         <input
@@ -154,29 +157,31 @@ function Main() {
                     </div>
                 </form>
             </div>
-            <h1>Place-holder marketplace, Work In Progress</h1>
-            {items == null || loggedInUsername == null ? (
-                <LoadingIndicator />
-            ) : (
-                <div>
-                    {items.map((i) => (
-                        <div style={{ margin: "10px" }}>
-                            <MarketplaceItem
-                                key={i.username + i.title}
-                                username={i.username}
-                                title={i.title}
-                                description={i.description}
-                                price_cents={i.price_cents}
-                                onDelete={
-                                    i.username === loggedInUsername
-                                        ? handleDelete
-                                        : undefined
-                                }
-                            />
-                        </div>
-                    ))}
-                </div>
-            )}
+
+            <div id="marketplaceMain">
+                {items == null || loggedInUsername == null ? (
+                    <LoadingIndicator />
+                ) : (
+                    <div id="marketplaceItems">
+                        {items.map((i) => (
+                            <div>
+                                <MarketplaceItem
+                                    key={i.username + i.title}
+                                    username={i.username}
+                                    title={i.title}
+                                    description={i.description}
+                                    price_cents={i.price_cents}
+                                    onDelete={
+                                        i.username === loggedInUsername
+                                            ? handleDelete
+                                            : undefined
+                                    }
+                                />
+                            </div>
+                        ))}
+                    </div>
+                )}
+            </div>
         </div>
     );
 }

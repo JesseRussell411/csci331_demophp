@@ -83,65 +83,76 @@ function Main() {
     }
 
     return (
-        <div>
-            <form onSubmit={handleSubmit}>
-                <div>
-                    <label htmlFor="title">Title</label>
-                    <br />
-                    <input type="text" id="title" name="title"
-                    onChange={(e) => setTitle(e.target.value)}></input>
-                </div>
-                <div>
-                    <label htmlFor="description">Description</label>
-                    <br />
-                    <textarea id="description" name="description"
-                    onChange={(e) => setDescription(e.target.value)}></textarea>
-                </div>
-                <div>
-                    <label>Price</label>
-                    <br />
-                    {"$"}
-                    <input
-                        type="number"
-                        id="price_dollars"
-                        name="price_dollars"
-                        min="0"
-                        onChange={(e) => setPrice_dollars(e.target.value)}
-                    ></input>
-                    <div
-                        style={{
-                            display: "inline-block",
-                            fontSize: ".3em",
-                            marginLeft: "5px",
-                            marginRight: "5px",
-                        }}
-                    >
-                        {" ⚫ "}
+        <div id="sellItem">
+            <div className="tile" id="sellItemInfo">
+                <form onSubmit={handleSubmit}>
+                    <div>
+                        <label htmlFor="title">Title</label>
+                        <br />
+                        <input
+                            type="text"
+                            id="title"
+                            name="title"
+                            onChange={(e) => setTitle(e.target.value)}
+                        ></input>
                     </div>
-                    <input
-                        type="number"
-                        id="price_cents"
-                        name="price_cents"
-                        max="99"
-                        min="0"
-                        onChange={(e) => setPrice_cents(e.target.value)}
-                    ></input>
-                </div>
-                <div>
-                    <input
-                        type="submit"
-                        disabled={submitting}
-                        value={submitting ? "submitting..." : "Submit Item"}
-                    ></input>
-                </div>
-            </form>
-            <h2>preview</h2>
-            <MarketplaceItem
-                username={username}
-                title={title}
-                description={description}
-                price_cents={getFullPrice_cents(price_dollars, price_cents)}
-            />
+                    <div>
+                        <label htmlFor="description">Description</label>
+                        <br />
+                        <textarea
+                            id="description"
+                            name="description"
+                            onChange={(e) => setDescription(e.target.value)}
+                        ></textarea>
+                    </div>
+                    <div>
+                        <label>Price</label>
+                        <br />
+                        {"$"}
+                        <input
+                            type="number"
+                            id="price_dollars"
+                            name="price_dollars"
+                            min="0"
+                            onChange={(e) => setPrice_dollars(e.target.value)}
+                        ></input>
+                        <div
+                            style={{
+                                display: "inline-block",
+                                fontSize: ".3em",
+                                marginLeft: "5px",
+                                marginRight: "5px",
+                            }}
+                        >
+                            {" ⚫ "}
+                        </div>
+                        <input
+                            type="number"
+                            id="price_cents"
+                            name="price_cents"
+                            max="99"
+                            min="0"
+                            onChange={(e) => setPrice_cents(e.target.value)}
+                        ></input>
+                    </div>
+                    <div>
+                        <input
+                            type="submit"
+                            disabled={submitting}
+                            value={submitting ? "submitting..." : "Submit Item"}
+                        ></input>
+                    </div>
+                </form>
+            </div>
+            <div id="sellitemPreview">
+                <h2>preview</h2>
+                <MarketplaceItem
+                    username={username}
+                    title={title}
+                    description={description}
+                    price_cents={getFullPrice_cents(price_dollars, price_cents)}
+                />
+            </div>
         </div>
     );
 }

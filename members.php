@@ -35,6 +35,7 @@ elseif (isset($_GET['remove'])) {
 $result = queryMysql("SELECT user FROM members ORDER BY user");
 $num    = $result->num_rows;
 
+echo "<div class=\"tile\" id=\"membersPage\">";
 echo "<h3>Members: $clubstr</h3><ul>";
 
 for ($j = 0 ; $j < $num ; ++$j) {
@@ -66,5 +67,6 @@ for ($j = 0 ; $j < $num ; ++$j) {
         echo " [<a href='members.php?remove=" . $row['user'] . "'>drop</a>]";
 }
 echo "</ul>";
+echo "</div>";
 require_once 'footer.php';
 ?>
