@@ -35,7 +35,11 @@ echo <<<_HEADER_OPEN
         <div id="wrapper">
         <header>
             <div id='logo'>eye Space</div>
+            <div class='username'><div>$user</div>
+            <div id="headerPicContainer">
 _HEADER_OPEN;
+showUserPic($user);
+echo "</div></div>";
 
 if ($loggedin) {
 echo <<<_LOGGEDIN
@@ -63,10 +67,11 @@ echo <<<_GUEST
 _GUEST;
  }
 
+
 echo <<<_HEADER_CLOSE
 
         </header>
-        <div class='username'>$userstr</div>
+        
         <div id="content">
 _HEADER_CLOSE;
 

@@ -76,7 +76,9 @@ _END;
 
 echo "<br><hr>";
 echo "<h3>Your Current Profile</h3>";
+echo '<div id="profilePicContainer">';
 showProfile($user);
+echo '</div>'
 
 ?>
 

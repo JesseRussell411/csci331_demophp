@@ -61,9 +61,13 @@ function sanitizeString($var){
     return $connection->real_escape_string($var);
 }
 
-function showProfile($user) {
+function showUserPic($user){
     if (file_exists("userpics/$user.jpg"))
-        echo "<img class='userpic' src='userpics/$user.jpg'>";
+    echo "<img class='userpic' src='userpics/$user.jpg'>";
+}
+
+function showProfile($user) {
+    showUserPic($user);
 
     $result = queryMysql("SELECT * FROM profiles WHERE user='$user'");
 
