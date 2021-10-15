@@ -33,7 +33,7 @@ if (isset($_POST['user'])) {
 
 echo <<<_END
 
-    <form method='post' action='login.php'>
+    <form class='tile basicPage' method='post' action='login.php'>
         <div data-role='fieldcontain'>
             <label></label>
             <span class='error'>$error</span>

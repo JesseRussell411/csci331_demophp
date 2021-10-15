@@ -54,7 +54,7 @@ if (isset($_POST['user'])) {
 }
 
 echo <<<_END
-    <form method='post' action='signup.php'>$error<br><br>
+    <form class='tile basicPage' method='post' action='signup.php'>$error<br><br>
         <div data-role='fieldcontain'>
             <label></label>
             <h3>Create username and password</h3>

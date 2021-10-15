@@ -63,6 +63,8 @@ if (isset($_FILES['image']['name'])) {
     }
 }
 
+echo '<div class="tile basicFullPage">';
+
 echo <<<_END
     <form method='post' action='profile.php' enctype='multipart/form-data'>
         <h3>Enter or edit your bio</h3>
@@ -78,7 +80,9 @@ echo "<br><hr>";
 echo "<h3>Your Current Profile</h3>";
 echo '<div id="profilePicContainer">';
 showProfile($user);
-echo '</div>'
+
+echo '</div>';
+echo '</div>';
 
 ?>
 

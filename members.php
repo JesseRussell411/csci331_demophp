@@ -14,12 +14,14 @@ if (isset($_GET['view'])) {
     else
         $name = "$view's";
 
+    echo '<div class="tile basicFullPage">';
     echo "<h3>$name Profile</h3>";
     echo '<div id="memberPicContainer">';
     showUserPic($view);
     echo '</div>';
     showProfile($view);
     echo "<a href='messages.php?view=$view'>View $name messages</a>";
+    echo '</div>';
     die(require 'footer.php');
 }
 
