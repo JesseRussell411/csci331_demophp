@@ -16,7 +16,7 @@ font-family: 'Playfair Display', serif;
 :root {
     /* color scheme */
     --primary-color: rgb(43, 80, 80);
-    --secondary-color: rgb(180, 50, 50);
+    --secondary-color: #777;
     --background-color: rgb(240, 240, 240);
     --forground-color: white;
 
@@ -54,6 +54,7 @@ header {
     justify-content: space-between;
     align-items: center;
     padding: 0 20px 0 20px;
+    background-image: linear-gradient(var(--primary-color), var(--secondary-color));
 }
 
 #logo {
@@ -73,7 +74,7 @@ nav {
     /* position: absolute; */
     width: 100%;
     /* bottom: 0; */
-    background-color: #777;
+    background-color: var(--secondary-color);
 }
 
 nav ul {
@@ -96,7 +97,7 @@ nav li a {
     text-align: center;
     padding: 14px 16px;
     text-decoration: none;
-    background-color: #777;
+    background-color: var(--secondary-color);
 }
 
 nav li a:hover {
