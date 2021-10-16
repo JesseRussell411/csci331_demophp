@@ -83,7 +83,8 @@ function MarketplaceItem({
             >
                 <div style={{
                     fontWeight:"bold",
-                    wordBreak: "break-word"
+                    wordBreak: "break-word",
+                    alignSelf: "flex-end",
                 }}>{title}</div>
                 {onDelete !== undefined ? <DeleteButton /> : ""}
             </div>
