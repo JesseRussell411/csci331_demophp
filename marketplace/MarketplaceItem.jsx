@@ -44,7 +44,11 @@ function MarketplaceItem({
             style={{
                 display: "block",
                 alignSelf: "flex-end",
-                margin: ".2em"
+                margin: ".2em",
+                width: "10ch",
+                height: "2em",
+                padding: ".5ch",
+                flexShrink: "0",
             }}>
                 {(() => {
                     if (deleting) {
