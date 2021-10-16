@@ -92,7 +92,7 @@ function Main() {
                         <input
                             id="sellItemTitle"
                             type="text"
-                            
+                            maxLength="256"
                             name="title"
                             onChange={(e) => setTitle(e.target.value)}
                         ></input>
@@ -107,10 +107,12 @@ function Main() {
                             onChange={(e) => setDescription(e.target.value)}
                         ></textarea>
                     </div>
-                    <div style={{marginBottom:"10px"}}>
+                    <div style={{ marginBottom: "10px" }}>
                         <label>Price</label>
                         <br />
-                        <span style={{fontSize: "20px", marginRight: "10px"}}>$</span>
+                        <span style={{ fontSize: "20px", marginRight: "10px" }}>
+                            $
+                        </span>
                         <input
                             type="number"
                             id="price_dollars"
