@@ -40,7 +40,13 @@ function MarketplaceItem({
         }
 
         return (
-            <button onClick={handleDelete} disabled={deleting}>
+            <button onClick={handleDelete} disabled={deleting}
+            style={{
+                display: "block",
+                height:"2em",
+                alignSelf:"flex-end",
+                margin:".2em"
+            }}>
                 {(() => {
                     if (deleting) {
                         return "deleting...";
@@ -69,12 +75,12 @@ function MarketplaceItem({
                     display: "flex",
 
                     justifyContent: "space-between",
-                    flexGrow: "1",
                     borderBottom:"1px solid black",
                 }}
             >
                 <div style={{
                     fontWeight:"bold",
+                    wordBreak: "break-word"
                 }}>{title}</div>
                 {onDelete !== undefined ? <DeleteButton /> : ""}
             </div>
@@ -82,7 +88,7 @@ function MarketplaceItem({
             {/* Description */}
             <div
                 style={{
-                    flexGrow: "2",
+                    wordBreak: "break-word",
                 }}
             >
                 {description}
