@@ -43,9 +43,8 @@ function MarketplaceItem({
             <button onClick={handleDelete} disabled={deleting}
             style={{
                 display: "block",
-                height:"2em",
-                alignSelf:"flex-end",
-                margin:".2em"
+                alignSelf: "flex-end",
+                margin: ".2em"
             }}>
                 {(() => {
                     if (deleting) {
