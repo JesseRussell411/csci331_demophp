@@ -114,7 +114,6 @@ nav li:nth-last-child(1) a {
     background-color: var(--background-color);
     padding-bottom: 80px;
 }
-
 .username {
     font-family: "Lora", serif;
     font-size: 1.5em;
@@ -221,6 +220,10 @@ footer a {
 
     #wrapper {
         width: 99vw;
+    }
+
+    #content {
+        padding: 2ch;
     }
 }
 /* END some responsive stuff*/
