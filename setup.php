@@ -1,3 +1,7 @@
+
+<?php
+    die("Disabled because I don't want to risk breaking the database.");
+?>
 <!DOCTYPE html>
 <html lang="en">
 
