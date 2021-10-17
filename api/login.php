@@ -1,7 +1,7 @@
 <?php
     require_once '../functions.php';
-    $username = $_POST['username'];
-    $password = $_POST['password'];
+    $username = sanitizeString($_POST['username']);
+    $password = sanitizeString($_POST['password']);
 
     // abort with 400 if the fields are blank
     if (!is_string($username) || $username === "" || !is_string($password) || $password === ""){

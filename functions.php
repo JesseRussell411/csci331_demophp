@@ -19,8 +19,41 @@ session_start();
 // of course the correct way to do this stuff is to let a library handle it.
 
 
-// TODO: put this in an ini file or something
-$secret = "alkds;fjalfnf32on3wnasdfasdfewfdq3vq32bvq346b455e6&%^&#$&Nynw456nw45ynW56fdaowfn";
+function getRandomString($length = 256){
+    $charSet = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ!@#^&*()-=_+`~,./<>?;\':"[]{}\|';
+    $result = '';
+
+    for($i = 0; $i < $length; ++$i){
+        $index = rand(0, strlen($charSet) - 1);
+        $result .= $charSet[$index];
+    }
+
+    return $result;
+}
+
+$secretSize = 256;
+$secret = ")jHl9V;UQkzZn3EhH.h(t{]7SjtKasQC'R(I21X+{jlB'#v)b=kOk}_T_9C7wG^#v4v0#!J)itmpN&PuSE=@)&R7F65V#'Vo9Ymm,]BT1tX/@h>'r9c\"fRC{hpF=X+e{*FGcl[~&u!s=lmBQ1c/J&d7Nb|H{[]4*?\"y'_'2.0l;WB5xB+)&i=^]Lyw=q^g!p:iXhrEZK68D:29B?gm+\"DiIrH;kS{NHzts,WG-rXw+38]IFciws)'\"?[w|V*[B!_";
+
+/** @return string authentication string based on the username and date*/
+function createAuthenticationString($username, string $secondsSinceEpoch){
+    global $secret;
+    global $secretSize;
+    $randomSecret = getRandomString($secretSize);
+    $_SESSION['randomSecret'] = $randomSecret;
+    return password_hash($username . $secondsSinceEpoch . $secret . $randomSecret, PASSWORD_BCRYPT);
+}
+
+/** @return bool whether the authentication string matches the username date*/
+function validateAuthenticationString($username, string $secondsSinceEpoch, $authenticationString){
+    global $secret;
+    if (!isset($_SESSION['randomSecret']))
+        return false;
+    else
+        return password_verify($username . $secondsSinceEpoch . $secret . $_SESSION['randomSecret'], $authenticationString);
+}
+
+// // TODO: put this in an ini file or something
+// $secret = "alkds;fjalfnf32on3wnasdfasdfewfdq3vq32bvq346b455e6&%^&#$&Nynw456nw45ynW56fdaowfn";
 // how long the user is logged in for
 $logginTimeout = new DateInterval("PT1H"/*1 hour*/);
 // $logginTimeout = new DateInterval("PT10S"/*10 seconds*/); /*<--- for testing*/
@@ -88,6 +121,10 @@ function showProfile($user) {
 
 
 // my additions: -----------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
 
 // some exceptions
 class NotFoundException extends Exception{}
@@ -172,17 +209,7 @@ function verifyUser($username, $password){
 
 // these next two functions are used for creating and checking the authentication string
 
-/** @return string authentication string based on the username and date*/
-function createAuthenticationString($username, string $secondsSinceEpoch){
-    global $secret;
-    return password_hash($username . $secondsSinceEpoch . $secret, PASSWORD_BCRYPT);
-}
 
-/** @return bool whether the authentication string matches the username date*/
-function validateAuthenticationString($username, string $secondsSinceEpoch, $authenticationString){
-    global $secret;
-    return password_verify($username . $secondsSinceEpoch . $secret, $authenticationString);
-}
 
 /** Called on successful login. Creates the user's authentication token and stores in in the session */
 function createUserAuthentication($username){

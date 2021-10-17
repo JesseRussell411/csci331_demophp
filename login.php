@@ -44,11 +44,11 @@ echo <<<_END
         </div>
         <div data-role='fieldcontain'>
             <label>Username</label>
-            <input type='text' maxlength='16' name='user' value='$user'>
+            <input type='text' maxlength='256' name='user' value='$user'>
         </div>
         <div data-role='fieldcontain'>
             <label>Password</label>
-            <input type='password' maxlength='16' name='pass' value='$pass'>
+            <input type='password' name='pass' value='$pass'>
         </div>
         <div data-role='fieldcontain'>
             <label></label>
